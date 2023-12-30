@@ -1,102 +1,15 @@
-# Cooking-Recipies
+Authors: 
+* Gavin Kitch - @gkitch
+* George Fang - @georgefang13
+* Jordan Hamelsky - @jordanhamelsky
 
-When starting run this:
-. venv/bin/activate
+Features:
+* User accounts: to create a new user, simple press sign up and enter your account details. Then retype your email and password to login. 
+* Creating recipes: to create a new recipe, press “new recipe” in the top left then enter the recipe details including the title, description, cook time in minutes, serving size, list of ingredients (name, units, quantity), steps, and picture.
+* Reading recipes: to read a recipe you can “quick view” them on the main page or you can click the title of the recipe and enter the recipe view. Here you will be able to see all the details of the recipe. If you want to see all the recipes that the user has created, click on their username from the recipe view or from the home page and you will see all the recipes that they have made. 
+* Rating recipes: to rate a recipe, enter the recipe view and click on the up or down arrow to vote. You can only vote once, but you can change your vote at any time. The number shown in between the arrows is the cumulation of all votes from all users on the platform. Remember, you can only vote if you have an account. 
+* Bookmarking recipes: to bookmark a recipe, enter the recipe view and click the bookmark button. The text will change to “Unbookmark” which you can then press at any time to unbookmark the recipe. To see the recipes you have bookmarked, go to your profile in the top right and click bookmarked recipes. You can also see the recipes that any other user has bookmarked by pressing on their username and pressing bookmarked recipes on their profile page.
+* Uploading photos: once you’ve made a recipe, you can upload your own photos to show off! Simply go to the recipe view and press “Choose File” below the existing photos. Choose the photo you want to share and press “Upload Photo”.
 
-
-Current things to do:
-Update / Fix CSS with proper names for corresponding html id and class names
-Get the database functioning
-Look into how the database should work with ingredients / steps added as a JS function
-How does the username show properly (it should show the user corresponding with the profile / recipe, not necessarily the
-    user who is current_user)
-Update the Jinja templates to reflect the data stored in the database, not the hardcoded text / images
-
-
-
-from cookies import db, create_app
-app=create_app()
-with app.app_context():
-    db.create_all()
-
-My mistake with the data base was there are two cookies.py files. One in the root directory and one in the instance directory. To check if tables were made after running the above command, you need to do sqlite3 instance/cookies.db when using the SQLite command-line tool. 
-
-
-To manually add a user:
-from cookies import create_app, db
-from cookies.model import User
-app = create_app()
-with app.app_context():
-    new_user = User(email="newuser@example.com", password="password", name="New User")
-    db.session.add(new_user)
-    db.session.commit()
-
-To see if the user was added:
-from cookies import create_app, db
-from cookies.model import User
-
-app = create_app()
-
-with app.app_context():
-    queried_user = User.query.filter_by(email="george.fang@duke.edu").first()
-
-if queried_user:
-    print(f"User found: {queried_user.name}")
-else:
-    print("User not found.")
-
-
-To see if the recipe was added:
-from cookies import create_app, db
-from cookies.model import Recipe
-
-app = create_app()
-
-with app.app_context():
-    queried_recipe = Recipe.query.filter_by(title="Test1").first()
-
-if queried_recipe:
-    print(f"Recipe found: {queried_recipe}")
-    print(f"ID: {queried_recipe.id}")
-    print(f"Title: {queried_recipe.title}")
-    print(f"Description: {queried_recipe.description}")
-    print(f"Cooking Time: {queried_recipe.cooking_time}")
-    print(f"Person Count: {queried_recipe.person_count}")
-    print(f"Quantified Ingredients: {queried_recipe.quantified_ingredients}")
-    print(f"Steps: {queried_recipe.steps}")
-else:
-    print("Recipe not found.")
-
-
-Check for bookmarks:
-from cookies import create_app, db
-from cookies.model import User
-
-app = create_app()
-
-with app.app_context():
-    queried_user = User.query.filter_by(email="geofang10@gmail.com").first()
-
-if queried_user:
-    print(f"Bookmark found: {queried_user.bookmarks}")
-   
-else:
-    print("User not found.")
-
-from cookies import create_app, db
-from cookies.model import User
-
-app = create_app()
-
-with app.app_context():
-    with db.session.begin(subtransactions=True):
-        queried_user = User.query.filter_by(email="geofang10@gmail.com").first()
-
-    if queried_user:
-        print(f"User found: {queried_user.email}")
-        if queried_user.bookmarks:
-            print(f"Bookmarks found: {queried_user.bookmarks}")
-        else:
-            print("User has no bookmarks.")
-    else:
-        print("User not found.")
+Additional Features:
+* Javascript: using javascript for adding and deleting ingredients and steps. This features makes creating new recipes much easier.
